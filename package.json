@@ -1,0 +1,26 @@
+{
+  "name": "@tinyts/tts-orm",
+  "version": "0.0.1",
+  "description": "Lightweight TypeScript ORM.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "integration-test": "node_modules/.bin/mocha -r ts-node/register __tests__/integration/**/*.test.ts",
+    "unit-test": "node_modules/.bin/mocha -r ts-node/register __tests__/unit/**/*.test.ts"
+  },
+  "author": "Andrew Viteri",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/assert": "^1.5.4",
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^14.14.32",
+    "@types/sqlite3": "^3.1.7",
+    "assert": "^2.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "sqlite3": "^5.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "experimentalDecorators": true,        
+        "lib": ["dom", "esnext"],
+        "moduleResolution": "node",
+        "noEmit": false,
+        "skipLibCheck": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "target": "ES5",
+    },
+    "include": ["index.ts", "src/**/*"],
+    "exclude": ["node_modules"]
+}
