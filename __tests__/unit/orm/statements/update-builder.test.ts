@@ -5,7 +5,7 @@ import { expect } from 'chai';
 // tts-orm
 import { Model } from '../../../../src/orm/decorators/model';
 import { Column } from '../../../../src/orm/decorators/column';
-import { DeleteBuilder } from '../../../../src/orm/statements/delete';
+import { UpdateBuilder } from '../../../../src/orm/statements/builder/update-builder';
 
 /**======================================
  *  Mock Models
@@ -48,29 +48,30 @@ class Car {
  * Unit Tests
  *=======================================*/
 
-describe('Delete statement', function () {
-    it('should create a valid delete statement w/ single column primary key', function () {
+describe('Update statement', function () {
+    it('should create a valid update statement w/ single column primary key', function () {
         const p = new Person();
         p.id = 5;
         p.name = 'John Doe';
         p.age = 27;
 
-        const _delete = new DeleteBuilder(p);
-        const statement = _delete.build();
-        expect(statement.sql).equal('DELETE FROM People WHERE id = ?');
-        expect(statement.parameters).eql([5]);
+        // NOTICE: Bio should be included because it's a nullable column.
+        const update = new UpdateBuilder(p);
+        const statement = update.build();
+        expect(statement.sql).equal('UPDATE People SET name = ?, age = ?, bio = ? WHERE id = ?');
+        expect(statement.parameters).eql(['John Doe', 27, null, 5]);
     });
 
-    it('should create a valid delete statement w/ composite key', function () {
+    it('should create a valid update statement w/ composite key', function () {
         const c = new Car();
         c.make = 'Ferrari';
         c.model = 'F40';
         c.year = 1987;
-        c.color = 'red';
 
-        const _delete = new DeleteBuilder(c);
-        const statement = _delete.build();
-        expect(statement.sql).equal('DELETE FROM Cars WHERE make = ? AND model = ? AND year = ?');
-        expect(statement.parameters).eql(['Ferrari', 'F40', 1987]);
+        // NOTICE: Color should be included because it's a nullable column.
+        const update = new UpdateBuilder(c);
+        const statement = update.build();
+        expect(statement.sql).equal('UPDATE Cars SET color = ? WHERE make = ? AND model = ? AND year = ?');
+        expect(statement.parameters).eql([null, 'Ferrari', 'F40', 1987]);
     });
 });

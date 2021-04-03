@@ -5,7 +5,7 @@ import { expect } from 'chai';
 // tts-orm
 import { Model } from '../../../../src/orm/decorators/model';
 import { Column } from '../../../../src/orm/decorators/column';
-import { InsertBuilder } from '../../../../src/orm/statements/insert';
+import { InsertBuilder } from '../../../../src/orm/statements/builder/insert-builder';
 
 /**======================================
  *  Mock Models

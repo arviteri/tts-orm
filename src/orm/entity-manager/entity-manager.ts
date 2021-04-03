@@ -1,9 +1,9 @@
 import { hasId, load, loaded } from "../lib/model";
 import { checkDefinition } from "../lib/definition";
 import { checkProperty } from "../lib/property";
-import { DeleteBuilder } from "../statements/delete";
-import { InsertBuilder } from "../statements/insert";
-import { UpdateBuilder } from "../statements/update";
+import { DeleteBuilder } from "../statements/builder/delete-builder";
+import { InsertBuilder } from "../statements/builder/insert-builder";
+import { UpdateBuilder } from "../statements/builder/update-builder";
 import { ConnectionInterface } from "../../dbal/connection/i-connection";
 
 /**======================================

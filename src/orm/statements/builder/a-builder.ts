@@ -1,6 +1,6 @@
-import { checkDefinition } from "../lib/definition";
-import { checkProperty, Property } from "../lib/property";
-import { Statement } from "./i-statement";
+import { checkDefinition } from "../../lib/definition";
+import { checkProperty, Property } from "../../lib/property";
+import { Statement } from "../i-statement";
 
 /**======================================
  *  FOR INTERNAL USE ONLY

@@ -1,7 +1,7 @@
-import { checkDefinition, isPrimary } from "../lib/definition";
-import { Property } from "../lib/property";
-import { AbstractStatementBuilder } from "./a-statement";
-import { Statement } from "./i-statement";
+import { checkDefinition, isPrimary } from "../../lib/definition";
+import { Property } from "../../lib/property";
+import { AbstractStatementBuilder } from "./a-builder";
+import { Statement } from "../i-statement";
 
 /**======================================
  *  FOR INTERNAL USE ONLY
