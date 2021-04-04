@@ -2,8 +2,6 @@
  *  FOR INTERNAL USE ONLY
  *=======================================*/
 
-import { Definition } from "./definition";
-
 /**
  * Interface which describes metadata that defines a mapping between a model member
  * and database column.

@@ -10,6 +10,11 @@ import { ConnectionInterface } from "../../dbal/connection/i-connection";
  *  PUBLIC LIBRARY
  *=======================================*/
 
+// NOTICE: While the EntityManager class is part of the public library, the
+// class is not exported. An instance of the class is provided to the user
+// upon initiation of tts-orm. This single instance should be the only
+// instance needed.
+
 /**
  * Service which manages the create, update, and delete operations of models.
  */

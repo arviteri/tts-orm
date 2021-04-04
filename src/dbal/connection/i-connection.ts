@@ -1,3 +1,7 @@
+/**======================================
+ *  PUBLIC LIBRARY
+ *=======================================*/
+
 /**
  * Interface which defines a database connection.
  */

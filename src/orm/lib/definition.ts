@@ -171,14 +171,14 @@ function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any
 //     return checkDefinition(_class, false).table;
 // }
 
-/**
- * Gets the hydration function used to create new, hydrated model instances.
- * 
- * @param _class Class of the model for which to create a hydrated instance.
- * @returns Function which creates a hydrated instance of the provided class using a database row.
- * 
- * @throws Error if the class provided is not a model.
- */
-export function getHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object {
-    return checkDefinition(_class, false).hydrator;
-}
+// /**
+//  * Gets the hydration function used to create new, hydrated model instances.
+//  * 
+//  * @param _class Class of the model for which to create a hydrated instance.
+//  * @returns Function which creates a hydrated instance of the provided class using a database row.
+//  * 
+//  * @throws Error if the class provided is not a model.
+//  */
+// export function getHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object {
+//     return checkDefinition(_class, false).hydrator;
+// }

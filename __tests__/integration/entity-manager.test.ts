@@ -4,50 +4,50 @@ import { expect } from 'chai';
 
 // tts-orm
 import { Connection } from '../integration/connections/sqlite3/connection';
-import { EntityManager } from '../../src/orm/entity-manager/entity-manager';
-import { Model } from '../../src/orm/decorators/model';
-import { Column } from '../../src/orm/decorators/column';
+import { init, Model, Column } from '../../index';
 import { Database } from 'sqlite3';
 
 /**======================================
  *  Mock Models
  *=======================================*/
 
- @Model({table: 'People'})
- class Person {
-     @Column({primary: true, autoIncrements: true})
-     declare id: number;
+@Model({table: 'People'})
+class Person {
+    @Column({primary: true, autoIncrements: true})
+    declare id: number;
  
-     @Column()
-     declare name: string;
+    @Column()
+    declare name: string;
  
-     @Column()
-     declare age: number;
+    @Column()
+    declare age: number;
  
-     @Column()
-     declare bio: string;
- }
+    @Column()
+    declare bio: string;
+}
  
- @Model({table: 'Cars'})
- class Car {
-     @Column({primary: true})
-     declare make: string;
+@Model({table: 'Cars'})
+class Car {
+    @Column({primary: true})
+    declare make: string;
  
-     @Column({primary: true})
-     declare model: string;
+    @Column({primary: true})
+    declare model: string;
  
-     @Column({primary: true})
-     declare year: number;
+    @Column({primary: true})
+    declare year: number;
  
-     @Column()
-     declare color: string;
- }
+    @Column()
+    declare color: string;
+}
  
  /**======================================
   *  Unit Tests
   *=======================================*/
 
-const em = new EntityManager(new Connection(new Database(':memory:')));
+const em = init({
+    connection: new Connection(new Database(':memory:')) 
+});
 
 
 before(async () => {

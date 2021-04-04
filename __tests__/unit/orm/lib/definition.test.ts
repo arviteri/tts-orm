@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 // tts-orm
 import { Model } from '../../../../src/orm/decorators/model';
-import { checkDefinition, Definition, DEFINITION_MEMBER, getHydrator, setDefinition } from '../../../../src/orm/lib/definition';
+import { checkDefinition, Definition, DEFINITION_MEMBER, setDefinition } from '../../../../src/orm/lib/definition';
 
 /**======================================
  *  Mock Models
@@ -57,10 +57,10 @@ describe('Definition', function () {
         expect(copy).eql(def); // test value equality
     });
 
-    // Uses TestModelD.
-    it('@getHydrator should return a valid hydrator', function () {
-        // Can only assert not null. Hydrator functionality should be
-        // in integration tests.
-        expect(getHydrator(TestModelD)).not.be.null;
-    });
+    // // Uses TestModelD.
+    // it('@getHydrator should return a valid hydrator', function () {
+    //     // Can only assert not null. Hydrator functionality should be
+    //     // in integration tests.
+    //     expect(getHydrator(TestModelD)).not.be.null;
+    // });
 });
