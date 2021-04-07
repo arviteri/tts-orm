@@ -83,7 +83,8 @@ describe('EntityManger', function () {
 
         const didCreatePerson = await em.save(p, true);
         expect(didCreatePerson).equal(true);
-        expect(p.id).equal(1);
+        expect(p.id).is.not.null;
+        expect(p.id).is.not.undefined;
 
         // Test create on compsite primary key.
         const c = new Car();

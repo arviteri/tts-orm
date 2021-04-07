@@ -1,6 +1,7 @@
 import { EntityManager } from './src/orm/entity-manager/entity-manager'; 
 import { ConnectionInterface } from './src/dbal/connection/i-connection';
 import { AbstractRepository } from './src/orm/repository/a-repository';
+import { ActiveModel, setEntityManager } from './src/orm/model/a-model';
 import { QueryBuilder } from './src/query/builder/query-builder';
 import { Model } from './src/orm/decorators/model';
 import { Column } from './src/orm/decorators/column';
@@ -29,13 +30,17 @@ interface Configuration {
  * @param configuration tts-orm configuration.
  */
 export function init(configuration: Configuration): EntityManager {
-    return new EntityManager(configuration.connection);
+    const entityManager = new EntityManager(configuration.connection);
+    setEntityManager(ActiveModel, entityManager);
+
+    return entityManager
 }
 
 export {
     ConnectionInterface,
     AbstractRepository,
     QueryBuilder,
+    ActiveModel,
     Model,
     Column,
     toBoolean,

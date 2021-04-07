@@ -165,21 +165,14 @@ export function getHydrator<TFunction extends Function>(_class: TFunction): (row
     return checkDefinition(_class, false).hydrator;
 }
 
-/**======================================
- *  PUBLIC LIBRARY
- *=======================================*/
-
-// /**
-//  * Gets the name of the table associated with the provided model.
-//  * 
-//  * @param _class Class of the model for which to return the associated table.
-//  * @returns Name of table associated with provided model.
-//  * 
-//  * @throws Error if the class provided is not a model.
-//  * 
-//  * @deprecated No known use cases for this. Members of the model definition should
-//  * only be used internally.
-//  */
-// export function getTable<TFunction extends Function>(_class: TFunction): string {
-//     return checkDefinition(_class, false).table;
-// }
+/**
+ * Gets the name of the table associated with the provided model.
+ *
+ * @param _class Class of the model for which to return the associated table.
+ * @returns Name of table associated with provided model.
+ *
+ * @throws Error if the class provided is not a model.
+ */
+export function getTable<TFunction extends Function>(_class: TFunction): string {
+    return checkDefinition(_class, false).table;
+}

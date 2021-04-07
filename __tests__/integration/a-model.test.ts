@@ -4,15 +4,20 @@ import { expect } from 'chai';
 
 // tts-orm
 import { Connection } from '../integration/connections/sqlite3/connection';
-import { init, Model, Column, AbstractRepository, QueryBuilder } from '../../index';
+import { init, Model, Column, ActiveModel } from '../../index';
 import { Database } from 'sqlite3';
+
+const em = init({
+    connection: new Connection(new Database(':memory:')) 
+ });
+ 
 
 /**======================================
  *  Mock Models
  *=======================================*/
 
 @Model({table: 'People'})
-class Person {
+class Person extends ActiveModel {
     @Column({primary: true, autoIncrements: true})
     declare id: number;
 
@@ -27,27 +32,8 @@ class Person {
 }
 
 /**======================================
- *  Test Repositories
- *=======================================*/
-
-class PersonRepository extends AbstractRepository {
-    async findAll(): Promise<Person[]> {
-        const qb = new QueryBuilder();
-        qb.select('*').from('People');
-        
-        const result: Person[] = <Person[]> await this.query(qb.build());
-        return result;
-    }
-}
-
-/**======================================
  *  Unit Tests
  *=======================================*/
- 
-const em = init({
-    connection: new Connection(new Database(':memory:')) 
- });
- 
  
 before(async () => {
     const connection = em.getConnection();
@@ -68,18 +54,17 @@ before(async () => {
     );`, []));
 });
 
-describe('AbstractRepository', function () {
-    it('should return all Person objects', async function () {
+describe('ActiveModel', function () {
+    it('should query from model class', async function () {
         const p = new Person();
         p.name = 'Mike Wazowski';
         p.age = 43;
         
-        const saveResult = await em.save(p);
+        const saveResult = await p.save(true);
         expect(saveResult).equal(true);
 
-        const personRepo = new PersonRepository(Person, em);
-        const people: Person[] = await personRepo.findAll();
-        expect(people.length).gte(1); // check >= because other tests may create people records
+        const people: Person[] = <Person[]> await p.where('age', 43).all();
+        expect(people.length).equal(1);
         expect(people[0].constructor.name).equal('Person');
     })
 });
