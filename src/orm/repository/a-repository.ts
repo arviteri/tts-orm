@@ -9,7 +9,7 @@ import { getHydrator } from '../lib/definition';
 /**
  * Abstract model repository.
  */
-export class AbstractRepository {
+export abstract class AbstractRepository {
     /**
      * New Repository.
      * 
