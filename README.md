@@ -1,10 +1,6 @@
 # tts-orm (Tiny TypeScript ORM)
 Lightweight TypeScript ORM.
 
-Manages the following:
-- Data mapping between models and database,
-- Create, Update, Delete operations.
-
 <hr/>
 
 ## License (MIT)
