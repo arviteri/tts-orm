@@ -110,13 +110,20 @@ export class QueryBuilder {
      * and its parameters. Resets the state of the 
      */
     build(): Statement {
-        const condition = this.conditionBuilder.build();
-        const statement: Statement = {
-            sql: `SELECT ${this.selected.join(', ')} FROM ${this.table} WHERE ${condition.condition}`,
-            parameters: condition.parameters
-        };
+        const queryBase = `SELECT ${this.selected.join(', ')} FROM ${this.table}`;
 
-        return statement;
+        const condition = this.conditionBuilder.build();
+        if (condition.condition) {
+            return {
+                sql: queryBase + ` WHERE ${condition.condition}`,
+                parameters: condition.parameters
+            };
+        }
+
+        return {
+            sql: queryBase,
+            parameters: []
+        };
     }
 
     /**

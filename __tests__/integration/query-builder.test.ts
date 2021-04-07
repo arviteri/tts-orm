@@ -6,6 +6,15 @@ import { expect } from 'chai';
 import { QueryBuilder } from '../../index';
 
 describe('QueryBuilder', function () {
+    it('should create a query w/ zero conditions', function () {
+        const queryBuilder = new QueryBuilder();
+        queryBuilder.select('*').from('TestTable');
+        const statement = queryBuilder.build();
+
+        expect(statement.sql).equal('SELECT * FROM TestTable');
+        expect(statement.parameters).eql([]);
+    })
+
     it('should create a query w/ one condition', function () {
         const queryBuilder = new QueryBuilder();
         queryBuilder.select('col_a', 'col_b')

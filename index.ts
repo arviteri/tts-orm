@@ -1,5 +1,6 @@
 import { EntityManager } from './src/orm/entity-manager/entity-manager'; 
 import { ConnectionInterface } from './src/dbal/connection/i-connection';
+import { AbstractRepository } from './src/orm/repository/a-repository';
 import { QueryBuilder } from './src/query/builder/query-builder';
 import { Model } from './src/orm/decorators/model';
 import { Column } from './src/orm/decorators/column';
@@ -33,6 +34,7 @@ export function init(configuration: Configuration): EntityManager {
 
 export {
     ConnectionInterface,
+    AbstractRepository,
     QueryBuilder,
     Model,
     Column,
