@@ -15,7 +15,7 @@ import { EntityManager } from "../entity-manager/entity-manager";
  * 
  * @internal.
  */
-export function setEntityManager(ActiveModel: abstract new() => ActiveModel, entityManager: EntityManager): void {
+export function setEntityManager(ActiveModel: Function, entityManager: EntityManager): void {
     const _class: any = ActiveModel;
     _class['entityManager'] = entityManager;
 }
