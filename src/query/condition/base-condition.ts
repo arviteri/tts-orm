@@ -6,6 +6,11 @@ import { Condition, ConditionInterface } from "./i-condition";
  *=======================================*/
 
 /**
+ * Operator type.
+ */
+export type Operator = '<' | '>' | '<=' | '>=' | '=' | '<>' | 'LIKE' | 'NOT LIKE';
+
+/**
  * Representation of a bear SQL query condition.
  * 
  * @internal
@@ -21,7 +26,7 @@ export class BaseCondition implements ConditionInterface {
      constructor(
         private operand: string,
         private value: string | boolean | number | null,
-        private operator: '<' | '>' | '<=' | '>=' | '=' | '<>' | 'LIKE' | 'NOT LIKE'
+        private operator: Operator
     ) {}
 
     and(condition: ConditionInterface): ConditionInterface {

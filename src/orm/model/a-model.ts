@@ -1,3 +1,4 @@
+import { Operator } from '../../query/condition/base-condition';
 import { ActiveQuery } from "../../query/active/active-query";
 import { EntityManager } from "../entity-manager/entity-manager";
 
@@ -40,7 +41,7 @@ export abstract class ActiveModel {
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
      */
-    where(operand: string,  value: string | boolean | number | null, operator: '<' | '>' | '<=' | '>=' | '=' | '<>' | 'LIKE' | 'NOT LIKE' = '='): ActiveQuery {
+    where(operand: string,  value: string | boolean | number | null, operator: Operator = '='): ActiveQuery {
         const model: any = this.constructor;
         const query = new ActiveQuery(model);
         query.setConnection(ActiveModel.entityManager.getConnection());

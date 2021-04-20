@@ -1,5 +1,5 @@
 import { Statement } from "../../orm/statements/i-statement";
-import { BaseCondition } from "../condition/base-condition";
+import { BaseCondition, Operator } from "../condition/base-condition";
 import { ConditionBuilder } from "./condition-builder";
 
 /**======================================
@@ -61,7 +61,7 @@ export class QueryBuilder {
      * @throws Error if called prior to 'and()' or 'or()' and a condition
      * has already been created.
      */
-    where(operand: string,  value: string | boolean | number | null, operator: '<' | '>' | '<=' | '>=' | '=' | '<>' | 'LIKE' | 'NOT LIKE'): QueryBuilder {
+    where(operand: string,  value: string | boolean | number | null, operator: Operator): QueryBuilder {
         this.conditionBuilder.where(new BaseCondition(operand, value, operator));
 
         return this;

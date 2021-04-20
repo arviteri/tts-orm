@@ -1,6 +1,7 @@
 import { ConnectionInterface } from "../../dbal/connection/i-connection";
 import { QueryBuilder } from "../../query/builder/query-builder";
 import { getHydrator, getTable } from "../../orm/lib/definition";
+import { Operator } from "../condition/base-condition";
 
 /**======================================
  *  PUBLIC LIBRARY
@@ -47,7 +48,7 @@ export class ActiveQuery {
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
      */
-    where(operand: string,  value: string | boolean | number | null, operator: '<' | '>' | '<=' | '>=' | '=' | '<>' | 'LIKE' | 'NOT LIKE'): ActiveQuery {
+    where(operand: string,  value: string | boolean | number | null, operator: Operator): ActiveQuery {
         this.queryBuilder.where(operand, value, operator);
 
         return this;
