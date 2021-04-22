@@ -1,6 +1,6 @@
 {
   "name": "@tinyts/tts-orm",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Lightweight TypeScript ORM.",
   "main": "index.js",
   "types": "index.d.ts",
