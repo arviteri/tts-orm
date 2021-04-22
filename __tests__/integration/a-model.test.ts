@@ -63,7 +63,7 @@ describe('ActiveModel', function () {
         const saveResult = await p.save(true);
         expect(saveResult).equal(true);
 
-        const people: Person[] = <Person[]> await p.where('age', 43).all();
+        const people: Person[] = <Person[]> await Person.where('age', 43).all();
         expect(people.length).equal(1);
         expect(people[0].constructor.name).equal('Person');
     })

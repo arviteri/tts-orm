@@ -41,8 +41,8 @@ export abstract class ActiveModel {
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
      */
-    where(operand: string,  value: string | boolean | number | null, operator: Operator = '='): ActiveQuery {
-        const model: any = this.constructor;
+    static where(operand: string, value: string | boolean | number | null, operator: Operator = '='): ActiveQuery {
+        const model: any = this;
         const query = new ActiveQuery(model);
         query.setConnection(ActiveModel.entityManager.getConnection());
         query.where(operand, value, operator);
