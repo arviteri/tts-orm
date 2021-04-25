@@ -30,6 +30,10 @@ class Person {
  *=======================================*/
 
 class PersonRepository extends AbstractRepository {
+    constructor() {
+        super(Person, em);
+    }
+
     findAll(): Promise<Person[]> {
         const qb = new QueryBuilder();
         qb.select('*').from('People');
@@ -70,7 +74,7 @@ describe('AbstractRepository', function () {
         const saveResult = await em.save(p);
         expect(saveResult).equal(true);
 
-        const personRepo = new PersonRepository(Person, em);
+        const personRepo = new PersonRepository();
         const people: Person[] = await personRepo.findAll();
         expect(people.length).gte(1); // check >= because other tests may create people records
         expect(people[0].constructor.name).equal('Person');

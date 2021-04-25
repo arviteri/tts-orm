@@ -3,6 +3,103 @@ Lightweight TypeScript ORM.
 
 <hr/>
 
+**NOTICE:** May not be production ready.
+
+## Installation
+
+npm: `npm install @tinyts/tts-orm`
+<br/>
+Yarn: `yarn add @tinyts/tts-orm`
+
+## Usage
+Details of usage can also be found in the integration tests. See `__tests__/integration`.
+
+### Connecting to a database.
+Create a class which implements the `ConnectionInterface`. Initialize tts-orm using your connection class. See initialization steps below.
+```
+import { ConnectionInterface } from '@tinyts/tts-orm';
+
+export class Connection implements ConnectionInterface {
+    ...
+}
+```
+
+
+### Initializing tts-orm
+The EntityManager instance returned upon initialization can be used to save and delete models. It's automatically connected to the ActiveModel class upon initialization.
+```
+import { init } from '@tinyts/tts-orm'
+import { Connection } from './your_connection_file';
+
+const entityManager: EntityManager = init({
+    connection: new Connection()
+});
+```
+
+### Defining models
+If you're using the active record implementation, make sure your models extend ActiveModel.
+```
+import { Model, Column, ActiveModel } from '@tinyts/tts-orm';
+
+@Model({table: 'People'})
+class Person extends ActiveModel {
+    @Column({primary: true, autoIncrements: true})
+    private id: number;
+    
+    // Define the column name if your property name is not the same.
+    @Column({name: 'first_name', nullable: false})
+    private firstName: string;
+    
+    // Columns are nullable by default.
+    @Column({name: 'last_name', nullable: false})
+    private lastName: string;
+    
+    @Column()
+    private height: number | null;
+}
+```
+
+### Active Record
+Use Active Record pattern by extending ActiveModel.
+```
+import { Person } from './person'; // See `Defining Models` for this definition.
+
+const p = new Person();
+person.firstName = 'John';
+person.lastName = 'Doe';
+
+// Save and delete
+await p.save();
+await p.delete();
+
+// Querying
+const johns = await Person.where('first_name', 'John', '=').all();
+```
+
+### Repository
+Encapsulate model read operations inside of repository classes.
+```
+import { AbstractRepository } from '@tinyts/tts-orm';
+import { entityManager } from './my_initialization_file';
+import { MyModel } from './my_model_file';
+
+class MyModelRepository extends AbstractRepository {
+    constructor() {
+        super(MyModel, entityManager);
+    }
+    
+    findAll(): Promise<MyModel[]> {
+        const query = {
+            sql: 'SELECT * FROM MyModels';
+            parameters: []
+        };
+        
+        // Results from this.query are instances of the model.
+        return this.query(query) as Promise<MyModel[]>;
+    }
+}
+```
+
 ## License (MIT)
 
 Copyright © 2021 Andrew Viteri
