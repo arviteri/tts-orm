@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 // tts-orm
 import { Connection } from './connections/sqlite3/connection';
-import { init, Model, Column } from '../../index';
+import {init, Model, Column, toString, toInt} from '../../index';
 import { Database } from 'sqlite3';
 
 /**======================================
@@ -40,6 +40,15 @@ class Car {
     @Column()
     declare color: string;
 }
+
+@Model({table: 'Buildings'})
+class Building {
+    @Column({primary: true, autoIncrements: true, parser: toString, caster: toInt})
+    declare id: string;
+
+    @Column({parser: toString, caster: toInt})
+    declare built: string;
+}
  
 /**======================================
  * Unit Tests
@@ -66,6 +75,10 @@ before(async () => {
         year INTEGER,
         color VARCHAR(255),
         PRIMARY KEY(make, model, year)
+    );`, [])).then(() => connection.exec(`
+    CREATE TABLE IF NOT EXISTS Buildings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        built INTEGER
     );`, []));
 });
 
@@ -113,5 +126,16 @@ describe('EntityManger', function () {
 
         const didDeleteCar = await em.delete(c, true);
         expect(didDeleteCar).equal(true);
+    });
+
+    it('should parse auto incrementing id value', async function () {
+        const b = new Building();
+        b.built = '1920';
+
+        const didCreateBuilding = await em.save(b, true);
+        expect(didCreateBuilding).equal(true);
+        expect(b.id).to.not.be.null;
+        expect(b.id).to.not.be.undefined;
+        expect(typeof b.id).equal('string');
     });
 });

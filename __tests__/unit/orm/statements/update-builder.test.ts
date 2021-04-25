@@ -6,6 +6,7 @@ import { expect } from 'chai';
 import { Model } from '../../../../src/orm/decorators/model';
 import { Column } from '../../../../src/orm/decorators/column';
 import { UpdateBuilder } from '../../../../src/orm/statements/builder/update-builder';
+import {toString, toInt} from '../../../../index';
 
 /**======================================
  *  Mock Models
@@ -43,6 +44,15 @@ class Car {
     @Column()
     declare color: string;
 }
+
+@Model({table: 'Buildings'})
+class Building {
+    @Column({primary: true, autoIncrements: true, parser: toString, caster: toInt})
+    declare id: string;
+
+    @Column({parser: toString, caster: toInt})
+    declare built: string;
+}
  
 /**======================================
  * Unit Tests
@@ -73,5 +83,16 @@ describe('Update statement', function () {
         const statement = update.build();
         expect(statement.sql).equal('UPDATE Cars SET color = ? WHERE make = ? AND model = ? AND year = ?');
         expect(statement.parameters).eql([null, 'Ferrari', 'F40', 1987]);
+    });
+
+    it('use property casters set on model properties', function () {
+        const b = new Building();
+        b.id = '1';
+        b.built = '1920';
+
+        const update = new UpdateBuilder(b);
+        const statement = update.build();
+        expect(statement.sql).equal('UPDATE Buildings SET built = ? WHERE id = ?');
+        expect(statement.parameters).eql([1920, 1]);
     });
 });

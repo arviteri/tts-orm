@@ -4,7 +4,7 @@ import { checkProperty } from '../lib/property';
 import { DeleteBuilder } from '../statements/builder/delete-builder';
 import { InsertBuilder } from '../statements/builder/insert-builder';
 import { UpdateBuilder } from '../statements/builder/update-builder';
-import { ConnectionInterface } from '../../dbal/connection/i-connection';
+import {ConnectionInterface, SQLType} from '../../dbal/connection/i-connection';
 
 /**======================================
  *  PUBLIC LIBRARY
@@ -96,13 +96,21 @@ export class EntityManager {
             // Check for auto-incrementing primary key.
             const def = checkDefinition(model.constructor, false);
             if (def.primaries.length === 1) {
-                const prop = checkProperty(def.properties, def.primaries[0]); // get property of only primary key
+                const idColumn = def.primaries[0];
+                const prop = checkProperty(def.properties, idColumn);
+
                 if (prop.autoIncrements) {
                     const instance: any = model; // eslint-disable-line
-                    const lastId = await this.getConnection().lastId();
-                    if (lastId) {
-                        instance[prop.member] = lastId;
+                    let lastId: SQLType | undefined = await this.getConnection().lastId();
+
+                    if (prop.parser) {
+                        lastId = prop.parser(lastId);
+                        if (lastId === undefined) {
+                            throw new Error(`Failed to parse database result for auto incrementing id '${idColumn}' on table ${def.table}`);
+                        }
                     }
+
+                    instance[prop.member] = lastId;
                 }
             }
         } catch (e) {

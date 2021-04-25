@@ -59,7 +59,12 @@ export abstract class AbstractStatementBuilder {
 
         return Object.keys(def.properties).reduce((values: any[], column: string) => { // eslint-disable-line
             const prop = checkProperty(def.properties, column);
-            const value = instance[prop.member];
+            let value = instance[prop.member];
+            if (prop.caster) {
+                // NOTICE: Fail open on cast failure. Undefined value will
+                // bet set to null.
+                value = prop.caster(value);
+            }
 
             if (conditioner(column, prop, value)) {
                 if (value === undefined) {
