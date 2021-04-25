@@ -14,7 +14,7 @@ import { Statement } from '../i-statement';
  */
 export class InsertBuilder extends AbstractStatementBuilder {
     /**
-     * @inheritdoc
+     * @inheritDoc
      * NOTE: Ignores non-nullable properties with null (or undefined) values.
      * Undefined nullable properties are included as null.
      */

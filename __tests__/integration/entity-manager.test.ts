@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from 'chai';
 
 // tts-orm
-import { Connection } from './connections/sqlite3/connection';
-import {init, Model, Column, toString, toInt} from '../../index';
-import { Database } from 'sqlite3';
+import {Model, Column, toString, toInt} from '../../index';
+import { entityManager as em } from './init/tts-orm-init';
 
 /**======================================
  *  Mock Models
@@ -53,11 +52,6 @@ class Building {
 /**======================================
  * Unit Tests
  *=======================================*/
-
-const em = init({
-    connection: new Connection(new Database(':memory:')) 
-});
-
 
 before(async () => {
     const connection = em.getConnection();

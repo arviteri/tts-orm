@@ -2,6 +2,7 @@ import {ConnectionInterface, SQLType} from '../../dbal/connection/i-connection';
 import { QueryBuilder } from '../builder/query-builder';
 import { getHydrator, getTable } from '../../orm/lib/definition';
 import { Operator } from '../condition/base-condition';
+import {checkEntityManager} from '../../orm/model/a-model';
 
 /**======================================
  *  PUBLIC LIBRARY
@@ -28,8 +29,13 @@ export class ActiveQuery {
 
     // eslint-disable-next-line
     constructor(model: new (...ConstructorParameters: any) => Object) {
-        this.model = model;
+        // Inherit connection from model class's EntityManager if exists.
+        const entityManager = checkEntityManager(model);
+        if (entityManager) {
+            this.setConnection(entityManager.getConnection());
+        }
 
+        this.model = model;
         this.queryBuilder = new QueryBuilder();
         this.queryBuilder.select('*');
         this.queryBuilder.from(getTable(model));
@@ -40,6 +46,13 @@ export class ActiveQuery {
      */
     setConnection(connection: ConnectionInterface): void {
         this.connection = connection;
+    }
+
+    /**
+     * Returns the query's connection.
+     */
+    getConnection(): ConnectionInterface | undefined {
+        return this.connection;
     }
 
     /**

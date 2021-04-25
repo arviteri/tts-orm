@@ -3,14 +3,8 @@ import 'mocha';
 import { expect } from 'chai';
 
 // tts-orm
-import { Connection } from './connections/sqlite3/connection';
-import { init, Model, Column, ActiveModel } from '../../index';
-import { Database } from 'sqlite3';
-
-const em = init({
-    connection: new Connection(new Database(':memory:')) 
-});
- 
+import { Model, Column, ActiveModel } from '../../index';
+import { entityManager as em } from './init/tts-orm-init';
 
 /**======================================
  *  Mock Models

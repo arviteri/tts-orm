@@ -21,6 +21,28 @@ export function setEntityManager(ActiveModel: Function, entityManager: EntityMan
     _class['entityManager'] = entityManager;
 }
 
+/**
+ * Checks a model class for an EntityManager instance.
+ *
+ * Intention: allow ActiveQuery to inherit the connection
+ * from the EntityManager instance attached to the model
+ * class passed to the constructor.
+ *
+ * @param Model class of model to check for EntityManager instance.
+ *
+ * @internal
+ */
+export function checkEntityManager(Model: Function): EntityManager | null { // eslint-disable-line
+    const _class: any = Model; // eslint-disable-line
+    const value = _class['entityManager'] ?? null;
+
+    if (value && value instanceof EntityManager) {
+        return value;
+    }
+
+    return null;
+}
+
 /**======================================
  *  PUBLIC LIBRARY
  *=======================================*/
@@ -65,7 +87,6 @@ export abstract class ActiveModel {
     static where(operand: string, value: SQLType, operator: Operator = '='): ActiveQuery {
         const model: any = this; // eslint-disable-line
         const query = new ActiveQuery(model);
-        query.setConnection(ActiveModel.entityManager.getConnection());
         query.where(operand, value, operator);
 
         return query;
