@@ -1,6 +1,6 @@
 {
   "name": "@tinyts/tts-orm",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Lightweight TypeScript ORM.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,6 +9,9 @@
     "unit-test": "node_modules/.bin/mocha -r ts-node/register __tests__/unit/**/*.test.ts"
   },
   "author": "Andrew Viteri",
+  "repository": {
+    "url": "https://github.com/arviteri/tts-orm"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/assert": "^1.5.4",
