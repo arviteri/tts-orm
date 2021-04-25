@@ -5,8 +5,10 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "integration-test": "node_modules/.bin/mocha -r ts-node/register __tests__/integration/**/*.test.ts",
-    "unit-test": "node_modules/.bin/mocha -r ts-node/register __tests__/unit/**/*.test.ts"
+    "lint": "./node_modules/.bin/eslint ./**/*.ts",
+    "test": "./node_modules/.bin/mocha -r ts-node/register __tests__/integration/**/*.test.ts __tests__/unit/**/*.test.ts",
+    "integration-test": "./node_modules/.bin/mocha -r ts-node/register __tests__/integration/**/*.test.ts",
+    "unit-test": "./node_modules/.bin/mocha -r ts-node/register __tests__/unit/**/*.test.ts"
   },
   "author": "Andrew Viteri",
   "repository": {

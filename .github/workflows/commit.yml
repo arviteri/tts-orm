@@ -1,0 +1,22 @@
+name: Test
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Install Dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+      - name: Test
+        run: yarn test
