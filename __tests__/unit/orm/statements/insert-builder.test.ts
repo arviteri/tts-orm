@@ -44,5 +44,5 @@ describe('Insert statement', function () {
         const statement = insert.build();
         expect(statement.sql).equal('INSERT INTO People (name, age, bio) VALUES (?, ?, ?)');
         expect(statement.parameters).eql(['John Doe', 27, null]);
-    })
+    });
 });

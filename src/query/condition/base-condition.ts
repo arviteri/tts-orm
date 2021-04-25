@@ -1,5 +1,6 @@
-import { ConjugatedCondition } from "./conjunction";
-import { Condition, ConditionInterface } from "./i-condition";
+import { ConjugatedCondition } from './conjunction';
+import { Condition, ConditionInterface } from './i-condition';
+import {SQLType} from '../../dbal/connection/i-connection';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -23,9 +24,9 @@ export class BaseCondition implements ConditionInterface {
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
      */
-     constructor(
+    constructor(
         private operand: string,
-        private value: string | boolean | number | null,
+        private value: SQLType,
         private operator: Operator
     ) {}
 
@@ -41,6 +42,6 @@ export class BaseCondition implements ConditionInterface {
         return {
             condition: `${this.operand} ${this.operator} ?`,
             parameters: [this.value]
-        }
+        };
     }
 }

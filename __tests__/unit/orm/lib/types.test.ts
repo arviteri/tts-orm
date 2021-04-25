@@ -94,4 +94,4 @@ describe('Type Casting', function () {
         expect(toObject(1)).equal(1);
         expect(toObject('[1,2,3]')).eql([1,2,3]);
     });
-})
+});

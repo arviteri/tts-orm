@@ -1,6 +1,6 @@
-
-import { checkDefinition, Definition, setDefinition } from "../lib/definition"
-import { Property, setProperty } from "../lib/property";
+import { checkDefinition, Definition, setDefinition } from '../lib/definition';
+import { Property, setProperty } from '../lib/property';
+import {SQLType} from '../../dbal/connection/i-connection';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -43,13 +43,13 @@ interface Column {
     /**
      * Function used to parse results from the database.
      */
-    parser?: (value: any) => any,
+    parser?: (value: any) => any, // eslint-disable-line
 
     /**
      * Function used to cast member values to a database type.
      * An undefined result represents a casting error.
      */
-    caster?: (value: any) => string | number | boolean | undefined
+    caster?: (value: any) => SQLType | undefined // eslint-disable-line
 }
 
 /**======================================
@@ -60,7 +60,8 @@ interface Column {
  * Defines an association between a class property and a database column.
  */
 export function Column(column?: Column): PropertyDecorator {
-    return function (target: Object, member: string | symbol): void {
+    // eslint-disable-next-line
+    return function (target: any, member: string | symbol): void {
         // Symbols are not supported.
         if ('symbol' === typeof member) {
             throw new Error('Symbols are not supported by the Column decorator.');
@@ -69,6 +70,7 @@ export function Column(column?: Column): PropertyDecorator {
         const columnName: string = column?.name ?? member;
 
         // Null object converter used in place of undefined parser, caster.
+        // eslint-disable-next-line
         const nullConverter = (value: any) => value;
 
         // Columns should be nullable unless it represents a primary key.
@@ -84,7 +86,7 @@ export function Column(column?: Column): PropertyDecorator {
             nullable: isNullable,
             parser: column?.parser ?? nullConverter,
             caster: column?.caster ?? nullConverter,
-        }
+        };
         
         // Update definition.
         def.properties = setProperty(def.properties, columnName, prop);
@@ -93,5 +95,5 @@ export function Column(column?: Column): PropertyDecorator {
         }
 
         setDefinition(target.constructor, def);
-    }
+    };
 }

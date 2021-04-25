@@ -17,9 +17,6 @@ class TestModelB {}
 
 class TestModelC {}
 
-@Model({table: 'TestModelDs'})
-class TestModelD {}
-
 /**======================================
  * Unit Tests
  *=======================================*/
@@ -31,7 +28,7 @@ describe('Definition', function () {
         expect(checkDefinition.bind(this, TestModelB, false)).to.not.throw();
 
         const defA: Definition = checkDefinition(TestModelA, true);
-        const _const: any = TestModelA;
+        const _const: any = TestModelA; // eslint-disable-line
         expect(_const[DEFINITION_MEMBER]).eql(defA);
     });
 
@@ -41,13 +38,13 @@ describe('Definition', function () {
             table: 'MyTable',
             primaries: [],
             properties: {},
-            hydrator: (row: any) => ({})
-        }
+            hydrator: (row: any) => ({}) // eslint-disable-line
+        };
 
         setDefinition(TestModelC, def);
         
         // Check against constructor property.
-        const _const: any = TestModelC;
+        const _const: any = TestModelC; // eslint-disable-line
         expect(_const[DEFINITION_MEMBER]).not.equal(def); // test reference equality
         expect(_const[DEFINITION_MEMBER]).eql(def); // test value equality
 
@@ -56,11 +53,4 @@ describe('Definition', function () {
         expect(copy).not.equal(def); // test reference equality
         expect(copy).eql(def); // test value equality
     });
-
-    // // Uses TestModelD.
-    // it('@getHydrator should return a valid hydrator', function () {
-    //     // Can only assert not null. Hydrator functionality should be
-    //     // in integration tests.
-    //     expect(getHydrator(TestModelD)).not.be.null;
-    // });
 });

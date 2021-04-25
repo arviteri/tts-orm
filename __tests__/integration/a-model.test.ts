@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from 'chai';
 
 // tts-orm
-import { Connection } from '../integration/connections/sqlite3/connection';
+import { Connection } from './connections/sqlite3/connection';
 import { init, Model, Column, ActiveModel } from '../../index';
 import { Database } from 'sqlite3';
 
 const em = init({
     connection: new Connection(new Database(':memory:')) 
- });
+});
  
 
 /**======================================
@@ -66,5 +66,5 @@ describe('ActiveModel', function () {
         const people: Person[] = <Person[]> await Person.where('age', 43).all();
         expect(people.length).equal(1);
         expect(people[0].constructor.name).equal('Person');
-    })
+    });
 });

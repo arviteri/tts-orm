@@ -1,17 +1,18 @@
 import { Database } from 'sqlite3';
-import { ConnectionInterface } from '../../../../src/dbal/connection/i-connection';
+import {ConnectionInterface, SQLType} from '../../../../index';
 
 /**
  * SQLite3 Connection created for integration testing purposes.
  */
 export class Connection implements ConnectionInterface {
-    private lastInsertedId: any = null;
+    private lastInsertedId: number | null = null;
 
     constructor(
         private database: Database
     ) {}
 
-    async query(sql: string, parameters: any[]): Promise<any[]> {
+    async query(sql: string, parameters: SQLType[]): Promise<any[]> { // eslint-disable-line
+        // eslint-disable-next-line
         return new Promise<any[]>((resolve, reject) => {
             this.database.all(sql, parameters, function (err, rows) {
                 if (err) { 
@@ -23,9 +24,10 @@ export class Connection implements ConnectionInterface {
         });
     }
 
-    async exec(sql: string, parameters: any[]): Promise<void> {
-        const _this = this;
-        return new Promise<void>(function (resolve, reject) {
+    async exec(sql: string, parameters: SQLType[]): Promise<void> {
+        const _this = this; // eslint-disable-line
+
+        return new Promise<void>((resolve, reject) => {
             _this.database.run(sql, parameters, function (err) {
                 if (err) { 
                     reject(err);
@@ -37,7 +39,7 @@ export class Connection implements ConnectionInterface {
         });
     }
 
-    async lastId(): Promise<any> {
+    async lastId(): Promise<number | null> {
         return this.lastInsertedId;
     }
 

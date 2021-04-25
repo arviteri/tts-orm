@@ -2,6 +2,8 @@
  *  FOR INTERNAL USE ONLY
  *=======================================*/
 
+import {SQLType} from '../../dbal/connection/i-connection';
+
 /**
  * Interface which describes metadata that defines a mapping between a model member
  * and database column.
@@ -27,17 +29,17 @@ export interface Property {
     /**
      * Function which converts values retrieved from the database to the desired TypesScript type.
      */
-    parser: (value: any) => any;
+    parser: (value: any) => any; // eslint-disable-line
 
     /**
      * Function which converts values on a model's member to the desired database type.
      */
-    caster: (value: any) => string | number | boolean | undefined
+    caster: (value: any) => SQLType | undefined // eslint-disable-line
 }
 
 
 /**
- * Interface which describes a mapping of databse columns to model properties.
+ * Interface which describes a mapping of database columns to model properties.
  * 
  * @internal
  */
@@ -51,7 +53,7 @@ export interface Properties {
 /**
  * Checks a model definition for an existing property.
  * 
- * @param definition Model definition to check for the property.
+ * @param properties Properties instance to check for property.
  * @param column Database column associated with the property.
  * @returns Copy of the property associated with the provided database column.
  * 

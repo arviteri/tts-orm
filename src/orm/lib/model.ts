@@ -1,5 +1,5 @@
-import { checkDefinition } from "../lib/definition";
-import { checkProperty, Property } from "./property";
+import { checkDefinition } from './definition';
+import { checkProperty, Property } from './property';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -11,7 +11,7 @@ import { checkProperty, Property } from "./property";
  * 
  * @internal
  */
- export const LOADED_MEMBER = '__tts_loaded__';
+export const LOADED_MEMBER = '__tts_loaded__';
 
 /**
  * Determines whether or not the model's id is properly set.
@@ -24,8 +24,8 @@ import { checkProperty, Property } from "./property";
  * 
  * @internal
  */
-export function hasId(model: Object): boolean {
-    const instance: any = model;
+export function hasId(model: Object): boolean { // eslint-disable-line
+    const instance: any = model; // eslint-disable-line
     const def = checkDefinition(model.constructor, false);
 
     if (def.primaries.length === 0) {
@@ -35,7 +35,7 @@ export function hasId(model: Object): boolean {
     // Iterate the primary keys to ensure they are all defined or all undefined (or null).
     let i = 0;
     let prop: Property = checkProperty(def.properties, def.primaries[i]);
-    let set: boolean = instance[prop.member] != null;
+    const set: boolean = instance[prop.member] != null;
     for (i = 1; i < def.primaries.length; i++) {
         prop = checkProperty(def.properties, def.primaries[i]);
         const current = instance[prop.member] != null;
@@ -55,8 +55,8 @@ export function hasId(model: Object): boolean {
  * 
  * @internal
  */
-export function loaded(model: Object): boolean {
-    const instance: any = model;
+export function loaded(model: Object): boolean { // eslint-disable-line
+    const instance: any = model; // eslint-disable-line
     return instance[LOADED_MEMBER] === true;
 }
 
@@ -69,7 +69,7 @@ export function loaded(model: Object): boolean {
  * 
  * @internal
  */
-export function load(model: Object): void {
+export function load(model: Object): void { // eslint-disable-line
     Object.defineProperty(model, LOADED_MEMBER, {
         enumerable: false,
         writable: false,

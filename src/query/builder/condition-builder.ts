@@ -1,6 +1,6 @@
-import { BaseCondition } from "../condition/base-condition";
-import { ConditionInterface, Condition } from "../condition/i-condition";
-import { ParentheseDecorator } from "../condition/parentheses";
+import { BaseCondition } from '../condition/base-condition';
+import { ConditionInterface, Condition } from '../condition/i-condition';
+import { ParenthesesDecorator } from '../condition/parentheses';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -19,7 +19,7 @@ interface StackEntry {
     condition?: ConditionInterface,
 
     /**
-     * Conjunction used to conjuate the condition after the entry is popped off the stack.
+     * Conjunction used to conjugate the condition after the entry is popped off the stack.
      */
     conjunction?: 'and' | 'or'
 }
@@ -116,10 +116,10 @@ export class ConditionBuilder {
         }
 
         // Conjugate the decorated condition w/ the condition which
-        // was existed before this set of parenthese was opened.
-        // If there was no condition prior to the parenthese being
+        // was existed before this set of parentheses was opened.
+        // If there was no condition prior to the parentheses being
         // opened, the current should be the decorated condition.
-        const decorated = new ParentheseDecorator(this.current);
+        const decorated = new ParenthesesDecorator(this.current);
         if (top.condition && top.conjunction) {
             if (top.conjunction === 'and') {
                 this.current = top.condition.and(decorated);

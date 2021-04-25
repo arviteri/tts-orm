@@ -1,4 +1,4 @@
-import { Condition, ConditionInterface } from "./i-condition";
+import { Condition, ConditionInterface } from './i-condition';
 import { ConjugatedCondition } from './conjunction';
 
 /**======================================
@@ -10,7 +10,7 @@ import { ConjugatedCondition } from './conjunction';
  * 
  * @internal
  */
-export class ParentheseDecorator implements ConditionInterface {
+export class ParenthesesDecorator implements ConditionInterface {
     /**
      * New ParenthesesDecorator
      * 
@@ -34,6 +34,6 @@ export class ParentheseDecorator implements ConditionInterface {
         return {
             condition: `(${condition.condition})`,
             parameters: condition.parameters
-        }
+        };
     }
 }

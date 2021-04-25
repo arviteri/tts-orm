@@ -1,4 +1,4 @@
-import { Condition, ConditionInterface } from "./i-condition";
+import { Condition, ConditionInterface } from './i-condition';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -15,7 +15,7 @@ export class ConjugatedCondition implements ConditionInterface {
      * 
      * @param left Left side of conjunction.
      * @param right Right side of conjunction.
-     * @param Conjunction Conjunction operator.
+     * @param conjunction Conjunction operator.
      */
     constructor(
         private left: ConditionInterface,
@@ -32,12 +32,12 @@ export class ConjugatedCondition implements ConditionInterface {
     }
 
     getCondition(): Condition {
-        let left = this.left.getCondition();
-        let right = this.right.getCondition();
+        const left = this.left.getCondition();
+        const right = this.right.getCondition();
         
         return {
             condition: `${left.condition} ${this.conjunction} ${right.condition}`,
             parameters: [...left.parameters, ...right.parameters]
-        }  
+        };
     }
 }

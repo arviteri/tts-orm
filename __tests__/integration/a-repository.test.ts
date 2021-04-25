@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from 'chai';
 
 // tts-orm
-import { Connection } from '../integration/connections/sqlite3/connection';
+import { Connection } from './connections/sqlite3/connection';
 import { init, Model, Column, AbstractRepository, QueryBuilder } from '../../index';
 import { Database } from 'sqlite3';
 
@@ -31,12 +31,11 @@ class Person {
  *=======================================*/
 
 class PersonRepository extends AbstractRepository {
-    async findAll(): Promise<Person[]> {
+    findAll(): Promise<Person[]> {
         const qb = new QueryBuilder();
         qb.select('*').from('People');
         
-        const result: Person[] = <Person[]> await this.query(qb.build());
-        return result;
+        return this.query(qb.build()) as Promise<Person[]>;
     }
 }
 
@@ -46,7 +45,7 @@ class PersonRepository extends AbstractRepository {
  
 const em = init({
     connection: new Connection(new Database(':memory:')) 
- });
+});
  
  
 before(async () => {
@@ -81,5 +80,5 @@ describe('AbstractRepository', function () {
         const people: Person[] = await personRepo.findAll();
         expect(people.length).gte(1); // check >= because other tests may create people records
         expect(people[0].constructor.name).equal('Person');
-    })
+    });
 });

@@ -1,3 +1,5 @@
+import {SQLType} from '../../dbal/connection/i-connection';
+
 /**======================================
  *  FOR INTERNAL USE ONLY
  *=======================================*/
@@ -5,9 +7,9 @@
 /**
  * Interface which defines a SQL query condition.
  * 
- * @interal
+ * @internal
  */
- export interface Condition {
+export interface Condition {
     /**
      * Raw condition.
      */
@@ -16,7 +18,7 @@
     /**
      * Parameter values of the condition.
      */
-    parameters: (string | number | boolean | null)[];
+    parameters: SQLType[];
 }
 
 /**

@@ -8,7 +8,7 @@
  * @param value Value to cast.
  * @returns Boolean representation of value provided.
  */
- export function toBoolean(value: any): boolean {
+export function toBoolean(value: any): boolean { // eslint-disable-line
     if ('boolean' === typeof value) {
         return value;
     }
@@ -25,7 +25,7 @@
  * @param value Value to cast.
  * @returns Int representation of value provided, or undefined on parse failure.
  */
-export function toInt(value: any): number | undefined {
+export function toInt(value: any): number | undefined { // eslint-disable-line
     if ('boolean' === typeof value) {
         return value ? 1 : 0;
     }
@@ -44,7 +44,7 @@ export function toInt(value: any): number | undefined {
  * @param value Value to cast.
  * @returns Float representation of value provided, or undefined on parse failure.
  */
-export function toFloat(value: any): number | undefined {
+export function toFloat(value: any): number | undefined { // eslint-disable-line
     if ('boolean' === typeof value) {
         return value ? 1.0 : 0.0;
     }
@@ -63,7 +63,7 @@ export function toFloat(value: any): number | undefined {
  * @param value Value to cast.
  * @returns BigInt representation of value provided, or undefined on parse failure.
  */
-export function toBigInt(value: any): BigInt | undefined {
+export function toBigInt(value: any): BigInt | undefined { // eslint-disable-line
     const allowedTypes: string[] = ['string', 'number', 'boolean'];
     const type: string = typeof value;
     if (allowedTypes.includes(type)) {
@@ -81,7 +81,7 @@ export function toBigInt(value: any): BigInt | undefined {
  * @param value Value to be casted.
  * @returns String representation of value provided.
  */
-export function toString(value: any): string {
+export function toString(value: any): string { // eslint-disable-line
     if ('string' === typeof value) {
         return value;
     }
@@ -100,7 +100,7 @@ export function toString(value: any): string {
  * @param value Value to be casted.
  * @returns Object representation of value provided, or undefined on parse failure.
  */
-export function toObject(value: any): any | undefined {
+export function toObject(value: any): any | undefined { // eslint-disable-line
     try {
         return JSON.parse(value);
     } catch (e) {

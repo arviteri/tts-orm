@@ -13,15 +13,15 @@ describe('Properties', function () {
     it('@checkProperty should properly check for property on properties', function () {
         const props: Properties = {};
         // test for non-existent property
-        expect(checkProperty.bind(this, props, 'non_existent')).to.throw('Non-existent property on model properties.')
+        expect(checkProperty.bind(this, props, 'non_existent')).to.throw('Non-existent property on model properties.');
 
         // test for existing property
         const existing: Property = {
             member: 'existingProp',
             autoIncrements: false,
             nullable: true,
-            parser: (value: any) => value, 
-            caster: (value: any) => value, 
+            parser: (value: any) => value, // eslint-disable-line
+            caster: (value: any) => value, // eslint-disable-line
         };
         props['existing'] = existing;
         expect(checkProperty.bind(this, props, 'existing')).to.not.throw();
@@ -34,8 +34,8 @@ describe('Properties', function () {
             member: 'newProp',
             autoIncrements: false,
             nullable: true,
-            parser: (value: any) => value, 
-            caster: (value: any) => value, 
+            parser: (value: any) => value, // eslint-disable-line
+            caster: (value: any) => value, // eslint-disable-line
         };
 
         

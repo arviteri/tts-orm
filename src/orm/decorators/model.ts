@@ -1,4 +1,4 @@
-import { checkDefinition, Definition, setDefinition } from "../lib/definition"
+import { checkDefinition, Definition, setDefinition } from '../lib/definition';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -26,12 +26,12 @@ interface Model {
  * @param model Model interface.
  */
 export function Model(model?: Model): ClassDecorator {
+    // eslint-disable-next-line
     return function <TFunction extends Function>(_class: TFunction): void {
         const def: Definition = checkDefinition(_class, true);
         // If no argument is provided to the decorator, use the model name as the table name.
-        const table: string = model?.table ?? _class.name;
-        def.table = table;
+        def.table = model?.table ?? _class.name;
 
         setDefinition(_class, def);
-    }
+    };
 }

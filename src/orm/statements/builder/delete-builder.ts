@@ -1,8 +1,6 @@
-
-import { checkDefinition, isPrimary } from "../../lib/definition";
-import { Property } from "../../lib/property";
-import { AbstractStatementBuilder } from "./a-builder";
-import { Statement } from "../i-statement";
+import { checkDefinition, isPrimary } from '../../lib/definition';
+import { AbstractStatementBuilder } from './a-builder';
+import { Statement } from '../i-statement';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -16,12 +14,11 @@ import { Statement } from "../i-statement";
 export class DeleteBuilder extends AbstractStatementBuilder {
     build(): Statement {
         const def = checkDefinition(this.model.constructor, false);
-        
-        const idConditioner = (column: string, property: Property, value: any): boolean => isPrimary(def, column);
+        const idConditioner = (column: string): boolean => isPrimary(def, column);
+
         const conditions: string = def.primaries.join(' = ? AND ') + ' = ?';
         const parameters = this.getValues(this.model, idConditioner);
-
-        const sql: string = `DELETE FROM ${def.table} WHERE ${conditions}`;
+        const sql = `DELETE FROM ${def.table} WHERE ${conditions}`;
 
         return {sql, parameters};
     }

@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from 'chai';
 
 // tts-orm
-import { Connection } from '../integration/connections/sqlite3/connection';
+import { Connection } from './connections/sqlite3/connection';
 import { init, Model, Column } from '../../index';
 import { Database } from 'sqlite3';
 
@@ -41,9 +41,9 @@ class Car {
     declare color: string;
 }
  
- /**======================================
-  *  Unit Tests
-  *=======================================*/
+/**======================================
+ * Unit Tests
+ *=======================================*/
 
 const em = init({
     connection: new Connection(new Database(':memory:')) 
@@ -86,7 +86,7 @@ describe('EntityManger', function () {
         expect(p.id).is.not.null;
         expect(p.id).is.not.undefined;
 
-        // Test create on compsite primary key.
+        // Test create on composite primary key.
         const c = new Car();
         c.make = 'Toyota';
         c.model = 'Corolla';

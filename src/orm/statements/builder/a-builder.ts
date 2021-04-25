@@ -1,6 +1,6 @@
-import { checkDefinition } from "../../lib/definition";
-import { checkProperty, Property } from "../../lib/property";
-import { Statement } from "../i-statement";
+import { checkDefinition } from '../../lib/definition';
+import { checkProperty, Property } from '../../lib/property';
+import { Statement } from '../i-statement';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -13,7 +13,7 @@ import { Statement } from "../i-statement";
  */
 export abstract class AbstractStatementBuilder {
     constructor(
-        protected model: Object
+        protected model: Object // eslint-disable-line
     ) {}
 
     /**
@@ -28,12 +28,14 @@ export abstract class AbstractStatementBuilder {
      * @param conditioner Function which decides if the column should be in the set returned.
      * @returns List of columns on model's definition.
      */
-    protected getColumns(model: Object, conditioner: (column: string, property: Property, value: any) => boolean): string[] {
-        const instance: any = model;
+    protected getColumns(model: Object, conditioner: (column: string, property: Property, value: any) => boolean): string[] { // eslint-disable-line
+        const instance: any = model; // eslint-disable-line
         const def = checkDefinition(model.constructor, false);
+
         return Object.keys(def.properties).reduce((columns: string[], column: string) => {
             const prop = checkProperty(def.properties, column);
             const value = instance[prop.member];
+
             if (conditioner(column, prop, value)) {
                 columns.push(column);
             }
@@ -51,12 +53,14 @@ export abstract class AbstractStatementBuilder {
      * @param conditioner Function which decides if the value should be in the set returned.
      * @returns List of model values.
      */
-    protected getValues(model: Object, conditioner: (column: string, property: Property, value: any) => boolean): any[] {
-        const instance: any = model;
+    protected getValues(model: Object, conditioner: (column: string, property: Property, value: any) => boolean): any[] { // eslint-disable-line
+        const instance: any = model; // eslint-disable-line
         const def = checkDefinition(model.constructor, false);
-        return Object.keys(def.properties).reduce((values: any[], column: string) => {
+
+        return Object.keys(def.properties).reduce((values: any[], column: string) => { // eslint-disable-line
             const prop = checkProperty(def.properties, column);
             const value = instance[prop.member];
+
             if (conditioner(column, prop, value)) {
                 if (value === undefined) {
                     values.push(null);

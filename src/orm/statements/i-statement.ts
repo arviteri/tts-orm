@@ -1,3 +1,5 @@
+import {SQLType} from '../../dbal/connection/i-connection';
+
 /**======================================
  *  FOR INTERNAL USE ONLY
  *=======================================*/
@@ -16,5 +18,5 @@ export interface Statement {
     /**
      * Parameter values of the SQL statement.
      */
-    parameters: (string | number | boolean | null)[];
+    parameters: SQLType[];
 }

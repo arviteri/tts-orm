@@ -1,5 +1,5 @@
 import { EntityManager } from './src/orm/entity-manager/entity-manager'; 
-import { ConnectionInterface } from './src/dbal/connection/i-connection';
+import { SQLType, ConnectionInterface } from './src/dbal/connection/i-connection';
 import { AbstractRepository } from './src/orm/repository/a-repository';
 import { ActiveModel, setEntityManager } from './src/orm/model/a-model';
 import { QueryBuilder } from './src/query/builder/query-builder';
@@ -33,10 +33,11 @@ export function init(configuration: Configuration): EntityManager {
     const entityManager = new EntityManager(configuration.connection);
     setEntityManager(ActiveModel, entityManager);
 
-    return entityManager
+    return entityManager;
 }
 
 export {
+    SQLType,
     ConnectionInterface,
     AbstractRepository,
     QueryBuilder,

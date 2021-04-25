@@ -1,6 +1,7 @@
-import { Statement } from "../../orm/statements/i-statement";
-import { BaseCondition, Operator } from "../condition/base-condition";
-import { ConditionBuilder } from "./condition-builder";
+import { Statement } from '../../orm/statements/i-statement';
+import { BaseCondition, Operator } from '../condition/base-condition';
+import { ConditionBuilder } from './condition-builder';
+import {SQLType} from '../../dbal/connection/i-connection';
 
 /**======================================
  *  PUBLIC LIBRARY
@@ -18,7 +19,7 @@ export class QueryBuilder {
     /**
      * Table to select from.
      */
-    private table: string = '';
+    private table = '';
 
     /**
      * ConditionBuilder instance used to build the `WHERE` clause.
@@ -61,7 +62,7 @@ export class QueryBuilder {
      * @throws Error if called prior to 'and()' or 'or()' and a condition
      * has already been created.
      */
-    where(operand: string,  value: string | boolean | number | null, operator: Operator): QueryBuilder {
+    where(operand: string,  value: SQLType, operator: Operator): QueryBuilder {
         this.conditionBuilder.where(new BaseCondition(operand, value, operator));
 
         return this;

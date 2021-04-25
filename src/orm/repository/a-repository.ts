@@ -1,5 +1,5 @@
-import { EntityManager } from "../entity-manager/entity-manager";
-import { Statement } from "../statements/i-statement";
+import { EntityManager } from '../entity-manager/entity-manager';
+import { Statement } from '../statements/i-statement';
 import { getHydrator } from '../lib/definition';
 
 /**======================================
@@ -18,7 +18,7 @@ export abstract class AbstractRepository {
      * database connection that the repository should use.
      */
     constructor(
-        private model: new (...ConstructorParameters: any) => Object,
+        private model: new (...ConstructorParameters: any) => Object, // eslint-disable-line
         private entityManager: EntityManager
     ) {}
 
@@ -28,10 +28,10 @@ export abstract class AbstractRepository {
      * 
      * @param statement Query to be executed.
      */
-    protected async query(statement: Statement): Promise<Object[]> {
-        const hydrator: (row: any) => Object = getHydrator(this.model);
+    protected async query(statement: Statement): Promise<Object[]> { // eslint-disable-line
+        const hydrator: (row: any) => Object = getHydrator(this.model); // eslint-disable-line
         const results = await this.entityManager.getConnection().query(statement.sql, statement.parameters);
         
-        return results.map((result: any) => hydrator(result));
+        return results.map((result: any) => hydrator(result)); // eslint-disable-line
     }
 }

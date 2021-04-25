@@ -1,5 +1,5 @@
-import { load } from "../lib/model";
-import { Properties } from "./property";
+import { load } from './model';
+import { Properties } from './property';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -43,7 +43,7 @@ export interface Definition {
      * 
      * @throws Error if column parser returns undefined.
      */
-    hydrator: (row: any) => Object;
+    hydrator: (row: any) => Object; // eslint-disable-line
 }
 
 /**
@@ -57,8 +57,8 @@ export interface Definition {
  * 
  * @internal
  */
-export function checkDefinition<TFunction extends Function>(_class: TFunction, create: boolean): Definition {
-    const _constructor: any = _class;
+export function checkDefinition<TFunction extends Function>(_class: TFunction, create: boolean): Definition { // eslint-disable-line
+    const _constructor: any = _class; // eslint-disable-line
     
     // Look for existing definition.
     if (_constructor[DEFINITION_MEMBER] == null) {
@@ -66,7 +66,7 @@ export function checkDefinition<TFunction extends Function>(_class: TFunction, c
             throw new Error('Non-existent model definition.');
         }
 
-         setDefinition(_class, {
+        setDefinition(_class, {
             table: '',
             primaries: [],
             properties: {},
@@ -85,8 +85,8 @@ export function checkDefinition<TFunction extends Function>(_class: TFunction, c
  * 
  * @internal
  */
-export function setDefinition<TFunction extends Function>(_class: TFunction, definition: Definition): void {
-    const _constructor: any = _class;
+export function setDefinition<TFunction extends Function>(_class: TFunction, definition: Definition): void { // eslint-disable-line
+    const _constructor: any = _class; // eslint-disable-line
     if (_constructor[DEFINITION_MEMBER] === undefined) {
         // The first time this is defined, it should be defined as non-enumerable.
         Object.defineProperty(_constructor, DEFINITION_MEMBER, {
@@ -95,7 +95,7 @@ export function setDefinition<TFunction extends Function>(_class: TFunction, def
         });
     }
 
-    _constructor[DEFINITION_MEMBER] = {...definition}
+    _constructor[DEFINITION_MEMBER] = {...definition};
 }
 
 /**
@@ -107,7 +107,8 @@ export function setDefinition<TFunction extends Function>(_class: TFunction, def
  * 
  * @internal
  */
-function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object {
+function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object { // eslint-disable-line
+    // eslint-disable-next-line
     return (row: any) => {
         const def: Definition = checkDefinition(_class, false);
         const instance = new _class.prototype.constructor();
@@ -117,8 +118,8 @@ function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any
             const member = def.properties[column].member;
             const parser = def.properties[column].parser;
 
-            const raw: any = row[column];
-            let value: any = raw;
+            const raw: any = row[column]; // eslint-disable-line
+            let value: any = raw; // eslint-disable-line
             if (parser != null) {
                 value = parser(raw);
 
@@ -134,7 +135,7 @@ function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any
         load(instance);
         
         return instance;
-    }
+    };
 }
 
 /**
@@ -147,7 +148,7 @@ function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any
  * 
  * @internal
  */
- export function isPrimary(definition: Definition, column: string): boolean {
+export function isPrimary(definition: Definition, column: string): boolean {
     return definition.primaries.includes(column);
 }
 
@@ -161,7 +162,7 @@ function buildHydrator<TFunction extends Function>(_class: TFunction): (row: any
  *
  * @internal
  */
-export function getHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object {
+export function getHydrator<TFunction extends Function>(_class: TFunction): (row: any) => Object { // eslint-disable-line
     return checkDefinition(_class, false).hydrator;
 }
 
@@ -173,6 +174,6 @@ export function getHydrator<TFunction extends Function>(_class: TFunction): (row
  *
  * @throws Error if the class provided is not a model.
  */
-export function getTable<TFunction extends Function>(_class: TFunction): string {
+export function getTable<TFunction extends Function>(_class: TFunction): string { // eslint-disable-line
     return checkDefinition(_class, false).table;
 }

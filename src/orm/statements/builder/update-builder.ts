@@ -1,7 +1,7 @@
-import { checkDefinition, isPrimary } from "../../lib/definition";
-import { Property } from "../../lib/property";
-import { AbstractStatementBuilder } from "./a-builder";
-import { Statement } from "../i-statement";
+import { checkDefinition, isPrimary } from '../../lib/definition';
+import { Property } from '../../lib/property';
+import { AbstractStatementBuilder } from './a-builder';
+import { Statement } from '../i-statement';
 
 /**======================================
  *  FOR INTERNAL USE ONLY
@@ -22,18 +22,22 @@ export class UpdateBuilder extends AbstractStatementBuilder {
         const def = checkDefinition(this.model.constructor, false);
 
         // Get columns and values.
-        const conditioner = (column: string, property: Property, value: any): boolean => !(isPrimary(def, column) || (value == null && !property.nullable));
+        // eslint-disable-next-line
+        const conditioner = (column: string, property: Property, value: any): boolean =>
+            !(isPrimary(def, column) || (value == null && !property.nullable));
+
         const columns = this.getColumns(this.model, conditioner);
         const values = this.getValues(this.model, conditioner);
-        
-        const idConditioner = (column: string, property: Property, value: any): boolean => isPrimary(def, column);
+
+        // Get id columns and id values.
+        const idConditioner = (column: string): boolean => isPrimary(def, column);
         const conditionColumns = def.primaries;
         const conditionValues = this.getValues(this.model, idConditioner); // use getValues so that undefined will be casted to null
         
         // Build SQL statement and parameters.
         const set = columns.join(' = ?, ') + ' = ?';
         const conditions: string = conditionColumns.join(' = ? AND ') + ' = ?';
-        const sql: string = `UPDATE ${def.table} SET ${set} WHERE ${conditions}`;
+        const sql = `UPDATE ${def.table} SET ${set} WHERE ${conditions}`;
 
         return {sql, parameters: [...values, ...conditionValues]};
     }
