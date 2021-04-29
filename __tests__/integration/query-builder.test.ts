@@ -83,4 +83,17 @@ describe('QueryBuilder', function () {
         expect(statement.sql).equal('SELECT col_b FROM TestTable WHERE col_b < ?');
         expect(statement.parameters).eql([2]);
     });
+
+    it('should create a query w/ a non-parameterized value', function () {
+        const queryBuilder = new QueryBuilder();
+        queryBuilder.select('col_a', 'col_b')
+            .from('TestTable')
+            .where('col_a', '\'%some_value%\'', 'LIKE', false)
+            .and()
+            .where('col_b', 1);
+
+        const statement = queryBuilder.build();
+        expect(statement.sql).equal('SELECT col_a, col_b FROM TestTable WHERE col_a LIKE \'%some_value%\' AND col_b = ?');
+        expect(statement.parameters).eql([1]);
+    });
 });

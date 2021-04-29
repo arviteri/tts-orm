@@ -83,11 +83,12 @@ export abstract class ActiveModel {
      * @param operand Operand which the condition operates upon.
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
+     * @param parameterize Whether or not to parameterize the value.
      */
-    static where(operand: string, value: SQLType, operator: Operator = '='): ActiveQuery {
+    static where(operand: string, value: SQLType, operator: Operator = '=', parameterize = true): ActiveQuery {
         const model: any = this; // eslint-disable-line
         const query = new ActiveQuery(model);
-        query.where(operand, value, operator);
+        query.where(operand, value, operator, parameterize);
 
         return query;
     }

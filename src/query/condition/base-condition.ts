@@ -23,11 +23,13 @@ export class BaseCondition implements ConditionInterface {
      * @param operand Operand which the condition operates upon.
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
+     * @param parameterize Whether or not to parameterize the value.
      */
     constructor(
         private operand: string,
         private value: SQLType,
-        private operator: Operator
+        private operator: Operator,
+        private parameterize = true
     ) {}
 
     and(condition: ConditionInterface): ConditionInterface {
@@ -39,6 +41,13 @@ export class BaseCondition implements ConditionInterface {
     }
 
     getCondition(): Condition {
+        if (!this.parameterize) {
+            return {
+                condition: `${this.operand} ${this.operator} ${this.value}`,
+                parameters: []
+            };
+        }
+
         return {
             condition: `${this.operand} ${this.operator} ?`,
             parameters: [this.value]

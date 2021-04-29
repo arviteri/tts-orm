@@ -58,12 +58,13 @@ export class QueryBuilder {
      * @param operand Operand which the condition operates upon.
      * @param value Value to check the operand against.
      * @param operator Operator used in condition.
-     * 
+     * @param parameterize Whether or not to parameterize the value.
+     *
      * @throws Error if called prior to 'and()' or 'or()' and a condition
      * has already been created.
      */
-    where(operand: string,  value: SQLType, operator: Operator): QueryBuilder {
-        this.conditionBuilder.where(new BaseCondition(operand, value, operator));
+    where(operand: string,  value: SQLType, operator: Operator = '=', parameterize = true): QueryBuilder {
+        this.conditionBuilder.where(new BaseCondition(operand, value, operator, parameterize));
 
         return this;
     }
