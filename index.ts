@@ -39,6 +39,7 @@ export function init(configuration: Configuration): EntityManager {
 
 export {
     SQLType,
+    EntityManager,
     ConnectionInterface,
     AbstractRepository,
     QueryBuilder,
