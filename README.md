@@ -1,10 +1,6 @@
 # tts-orm (Tiny TypeScript ORM)
 Lightweight TypeScript ORM.
 
-<hr/>
-
-**NOTICE:** May not be production ready.
-
 ## Installation
 
 npm: `npm install @tinyts/tts-orm`
